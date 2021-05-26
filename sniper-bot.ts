@@ -9,11 +9,9 @@ type Address = {
   recipient: string
 }
 
-const snipe = async (mnemonic: string, address: Address) => {
+const snipe = async (mnemonic: string, node: string, address: Address) => {
   // First address of this mnemonic must have enough BNB to pay for tx fess
-  const provider = new ethers.providers.WebSocketProvider(
-    "Ankr websocket url to mainnet"
-  );
+  const provider = new ethers.providers.WebSocketProvider(node);
 
   const wallet = ethers.Wallet.fromMnemonic(mnemonic);
 
@@ -112,9 +110,9 @@ const snipe = async (mnemonic: string, address: Address) => {
 
 (async () => {
   try {
-    const { addresses, mnemoic }: { addresses: Address[], mnemoic: string } = JSON.parse(await readFile(path.join(__dirname, "config.json"), "utf-8"));
+    const { addresses, mnemoic, node }: { addresses: Address[], mnemoic: string, node: string } = JSON.parse(await readFile(path.join(__dirname, "config.json"), "utf-8"));
 
-    await Promise.all(addresses.map((address) => snipe(mnemoic, address)));
+    await Promise.all(addresses.map((address) => snipe(mnemoic, node, address)));
   } catch (error) {
     console.error("Error sniping for contracts: ", error);
   }

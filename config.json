@@ -1,5 +1,6 @@
 {
   "mnemonic": "your mnemonic here, to send",
+  "node": "wss://--------some-node-websocket----------701/",
   "addresses": [
     {
       "WBNB": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
